@@ -59,7 +59,7 @@ inputs:
     description: "Fixes styles according to formating rules."
     required: false
 
-  logLevel:
+  log-level:
     description: "Sets the logging verbosity of the dotnet format process. Allowed values are q[uiet], m[inimal], n[ormal], d[etailed], and diag[nostic]"
     required: false
 
