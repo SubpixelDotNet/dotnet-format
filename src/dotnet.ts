@@ -18,6 +18,7 @@ export interface FormatOptions {
   fixWhitespace: boolean;
   fixAnalyzersLevel?: string;
   fixStyleLevel?: string;
+  subdirectory?: string;
 }
 
 function formatOnlyChangedFiles(onlyChangedFiles: boolean): boolean {
@@ -42,11 +43,19 @@ export async function format(options: FormatOptions): Promise<boolean> {
 
   const dotnetFormatOptions = ["format"];
 
+  if (options.subdirectory && !options.subdirectory.endsWith("\\")) {
+    options.subdirectory = options.subdirectory + "\\";
+  }
+
+  if (options.subdirectory && options.workspace) {
+    options.workspace = options.subdirectory + options.workspace;
+  }
+
   if (options.workspace !== undefined && options.workspace != "") {
     if (options.workspaceIsFolder) {
       dotnetFormatOptions.push("-f");
     }
-    
+
     dotnetFormatOptions.push(options.workspace);
   }
 
@@ -55,7 +64,7 @@ export async function format(options: FormatOptions): Promise<boolean> {
   }
 
   if (formatOnlyChangedFiles(options.onlyChangedFiles)) {
-    const filesToCheck = await getPullRequestFiles();
+    const filesToCheck = await getPullRequestFiles(options.subdirectory);
 
     info(`Checking ${filesToCheck.length} files`);
 

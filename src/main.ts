@@ -19,7 +19,8 @@ export async function run(): Promise<void> {
         throw Error(`Unsupported action "${action}"`);
     }
   } catch (error) {
-    setFailed(error.message);
+    const anyError = error as object as any;
+    setFailed(anyError.message);
     throw error;
   }
 }

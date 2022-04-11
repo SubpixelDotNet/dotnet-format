@@ -12,11 +12,13 @@ function buildOptions(): FormatOptions {
   const fixWhitespace = getInput("fix-whitespace") === "true";
   const fixAnalyzersLevel: string = getInput("fix-analyzers-level");
   const fixStyleLevel: string = getInput("fix-style-level");
+  const subdirectory: string = getInput("subdirectory");
 
   const formatOptions: FormatOptions = {
     onlyChangedFiles,
     workspaceIsFolder,
     fixWhitespace,
+    subdirectory,
   };
 
   if (include !== undefined && include != "") {

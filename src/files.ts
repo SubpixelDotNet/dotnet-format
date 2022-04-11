@@ -37,7 +37,7 @@ const fileTypes = [
   ".vb",
 ];
 
-export async function getPullRequestFiles(): Promise<string[]> {
+export async function getPullRequestFiles(subdirectory?: string): Promise<string[]> {
   const token = getInput("repo-token", { required: true });
   const githubClient = new GitHub(token);
 
@@ -54,8 +54,15 @@ export async function getPullRequestFiles(): Promise<string[]> {
 
   const files: Octokit.PullsListFilesResponse = await githubClient.paginate(listFilesOptions);
 
-  return files
+  let fileNames = files
     .filter(file => file.status !== fileStatus.removed)
     .filter(file => fileTypes.includes(extname(file.filename)))
     .map(file => file.filename);
+
+  if (subdirectory) {
+    const subdir = subdirectory;
+    fileNames = fileNames.map(name => name.startsWith(subdir) ? name.substring(subdir.length) : name);
+  }
+
+  return fileNames;
 }
