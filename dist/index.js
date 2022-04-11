@@ -2948,7 +2948,6 @@ function format(options) {
                 core_1.debug("No files found for formatting");
                 return false;
             }
-            dotnetFormatOptions.push("-f");
             dotnetFormatOptions.push("--include", filesToCheck.join(" "));
         }
         if (options.exclude !== undefined && options.exclude != "") {
