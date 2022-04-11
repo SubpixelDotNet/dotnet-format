@@ -29265,8 +29265,8 @@ function format(options) {
             windowsVerbatimArguments: true,
         };
         const dotnetFormatOptions = ["format"];
-        if (options.subdirectory && !options.subdirectory.endsWith("\\")) {
-            options.subdirectory = options.subdirectory + "\\";
+        if (options.subdirectory && !options.subdirectory.endsWith("/")) {
+            options.subdirectory = options.subdirectory + "/";
         }
         if (options.subdirectory && options.workspace) {
             options.workspace = options.subdirectory + options.workspace;

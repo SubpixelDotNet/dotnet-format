@@ -43,8 +43,8 @@ export async function format(options: FormatOptions): Promise<boolean> {
 
   const dotnetFormatOptions = ["format"];
 
-  if (options.subdirectory && !options.subdirectory.endsWith("\\")) {
-    options.subdirectory = options.subdirectory + "\\";
+  if (options.subdirectory && !options.subdirectory.endsWith("/")) {
+    options.subdirectory = options.subdirectory + "/";
   }
 
   if (options.subdirectory && options.workspace) {
